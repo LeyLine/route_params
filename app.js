@@ -3,20 +3,25 @@ const express = require("express");
 const app = express();
 const hbs = require("hbs");
 var path = require("path");
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
 //ROUTES
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.render("index");
 });
 
-app.get("/search", function(req, res) {
+app.get("/search", function (req, res) {
   res.send(req.query);
 });
 
-app.get("/users/:username", function(req, res) {
+app.get("/users/:username", function (req, res) {
   res.send(req.params);
 });
 
@@ -34,6 +39,14 @@ app.get("/display-user-info", (req, res) => {
     Your age is ${age}
     Your favorite superhero is ${superhero}
   `);
+});
+
+
+app.post('/login', (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+
+  res.send(`Email: ${email}, Password: ${password}`);
 });
 
 app.listen(3000, () => console.log("Example app listening on port 3000!"));

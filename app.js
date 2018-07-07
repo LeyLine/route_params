@@ -9,6 +9,14 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(myFakeMiddleware);
+// ...
+function myFakeMiddleware(_, _, next) {
+  console.log("myFakeMiddleware was called!");
+  next();
+}
+
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
@@ -57,5 +65,9 @@ app.post('/login', (req, res) => {
     res.send('go away');
   }
 
+});
+
+app.get('/test', (req, res) => {
+  res.send("We made it to test!");
 });
 app.listen(3000, () => console.log("Example app listening on port 3000!"));

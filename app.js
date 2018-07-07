@@ -42,11 +42,20 @@ app.get("/display-user-info", (req, res) => {
 });
 
 
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
 app.post('/login', (req, res) => {
+  // What ES6 feature could we use to clean these two lines up?
   let email = req.body.email;
   let password = req.body.password;
 
-  res.send(`Email: ${email}, Password: ${password}`);
-});
+  if (email == 'a@a.com' && password == 'aaa') {
+    res.send('Welcome');
+  } else {
+    res.send('go away');
+  }
 
+});
 app.listen(3000, () => console.log("Example app listening on port 3000!"));
